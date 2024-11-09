@@ -50,7 +50,7 @@ const Appointment = () => {
             />
           </div>
 
-          {/* Email */}
+          
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="email">
               Email
@@ -65,7 +65,7 @@ const Appointment = () => {
             />
           </div>
 
-          {/* Phone */}
+          
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="phone">
               Phone
@@ -80,7 +80,7 @@ const Appointment = () => {
             />
           </div>
 
-          {/* Appointment Date */}
+          
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="date">
               Appointment Date
@@ -94,7 +94,7 @@ const Appointment = () => {
             />
           </div>
 
-          {/* Appointment Time */}
+    
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="time">
               Appointment Time
@@ -108,7 +108,7 @@ const Appointment = () => {
             />
           </div>
 
-          {/* Doctor Selection */}
+          
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="doctor">
               Select Doctor
