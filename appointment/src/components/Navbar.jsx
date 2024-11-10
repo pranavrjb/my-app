@@ -1,11 +1,10 @@
 import React from 'react';
-
 const Navbar = () => {
   return (
-    <nav className="bg-gray-900 p-3 shadow-md">
+    <nav className="bg-blue-500 p-2 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
-        <div className="text-white text-1xl font-bold">
+        <div className="text-white text-2xl font-bold">
           <a href="/">My-App</a>
         </div>
 
