@@ -7,20 +7,20 @@ const app = express();
 const port=3001;
 
 app.use(cors({
-  origin: 'http://localhost:5173' //url to coneect from the frontend localhost
+  origin: 'http://localhost:5173' //url to conneect from the frontend localhost
 }));
 app.use(express.json());
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error('Error connecting to MongoDB:', err));
+  .then(() => console.log('Connected to the DataBase'))
+  .catch((err) => console.error('Error connecting to Databasr:', err));
 
 app.post('/appointmentbooking', async (req, res) => {
   const { name, email, phone, doctor, time, date } = req.body;
 
   try {
-    const existingAppointment = await AppointmentBookingModel.findOne({ date, time, doctor });
-    if (existingAppointment) {
+    const existap = await AppointmentBookingModel.findOne({ date, time, doctor });
+    if (existap) {
       return res.json({ message: 'Appointment already booked for this slot' });
     }
 
@@ -33,7 +33,7 @@ app.post('/appointmentbooking', async (req, res) => {
   }
 });
 
-// Start server
+//checking the server 
 app.listen(port, () => {
   console.log(`Server is running on port${port}`);
 });

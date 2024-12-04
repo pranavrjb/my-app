@@ -14,7 +14,7 @@ const AppointmentBooking = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    axios.post('http://localhost:3001/appointmentbooking', { // Use 'http' not 'https'
+    axios.post('http://localhost:3001/appointmentbooking', {
       name,
       email,
       phone,
@@ -45,8 +45,10 @@ const AppointmentBooking = () => {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12">
       <div className="bg-white p-8 rounded-lg shadow-md max-w-lg w-full">
         <h2 className="text-2xl font-bold text-center mb-6">Book an Appointment</h2>
-
+         
+         {/* appointment form*/}
         <form onSubmit={handleSubmit}>
+    
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="name">
               Name
