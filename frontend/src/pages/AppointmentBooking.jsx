@@ -9,10 +9,13 @@ const AppointmentBooking = () => {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState({ text: '', type: '' })
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    //for resetting the msgs
+    setMessage({ text: '', type: '' })
 
     axios.post('http://localhost:3001/appointmentbooking', {
       name,
@@ -25,7 +28,8 @@ const AppointmentBooking = () => {
       .then((result) => {
         console.log(result);
         setIsSubmitting(false);
-        alert('Booking confirmed!');
+        setMessage({ text: 'Booking is successful!', type: 'success' })
+        // alert('Booking confirmed!');
         // Reset form
         setName('');
         setEmail('');
@@ -37,7 +41,8 @@ const AppointmentBooking = () => {
       .catch((err) => {
         console.error(err);
         setIsSubmitting(false);
-        alert('Error occurred during booking');
+        // alert('Error occurred during booking!');
+        setMessage({ text: 'Error occured during booking process!', type: 'error' })
       });
   };
 
@@ -45,10 +50,10 @@ const AppointmentBooking = () => {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12">
       <div className="bg-white p-8 rounded-lg shadow-md max-w-lg w-full">
         <h2 className="text-2xl font-bold text-center mb-6">Book an Appointment</h2>
-         
-         {/* appointment form*/}
+
+        {/* appointment form*/}
         <form onSubmit={handleSubmit}>
-    
+
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="name">
               Name
@@ -89,7 +94,7 @@ const AppointmentBooking = () => {
               placeholder="Enter your phone number"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={phone}
-              max={10}
+              maxLength={10}
               onChange={(e) => setPhone(e.target.value)}
               required
             />
@@ -148,6 +153,13 @@ const AppointmentBooking = () => {
           >
             {isSubmitting ? 'Booking...' : 'Book Appointment'}
           </button>
+
+          <p
+            className={`mt-4 text-center text-md ${message.type === 'success' ? 'text-green-900' : 'text-red-700'
+              }`}
+          >
+            {message.text}
+          </p>
         </form>
       </div>
     </div>
