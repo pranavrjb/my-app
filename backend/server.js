@@ -1,40 +1,39 @@
-// server.js
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const AppointmentBookingModel = require("./models/AppointmentBooking");
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import AppointmentBookingModel from './models/AppointmentBooking.js';
 
 const app = express();
+const port=3001;
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173' //url to coneect from the frontend localhost
+}));
 app.use(express.json());
 
-// Connect to MongoDB with error handling
-mongoose.connect("mongodb://127.0.0.1:27017/test", { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("Error connecting to MongoDB:", err));
+mongoose.connect('mongodb://127.0.0.1:27017/test')
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('Error connecting to MongoDB:', err));
 
-app.post("/appointmentbooking", (req, res) => {
+app.post('/appointmentbooking', async (req, res) => {
   const { name, email, phone, doctor, time, date } = req.body;
 
-  if (!name || !email || !phone || !doctor || !date || !time) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
+  try {
+    const existingAppointment = await AppointmentBookingModel.findOne({ date, time, doctor });
+    if (existingAppointment) {
+      return res.json({ message: 'Appointment already booked for this slot' });
+    }
 
-  AppointmentBookingModel.findOne({ email: email })
-    .then(user => {
-      if (user) {
-        return res.status(409).json({ message: "Appointment already booked" });
-      } else {
-        AppointmentBookingModel.create({ name, email, phone, date, time, doctor })
-          .then(result => res.status(201).json({ message: "Booking done!", data: result }))
-          .catch(err => res.status(500).json({ message: "Server error", error: err }));
-      }
-    })
-    .catch(err => res.status(500).json({ message: "Database error", error: err }));
+    const newAppointment = new AppointmentBookingModel({ name, email, phone, date, time, doctor });
+    await newAppointment.save();
+    res.json({ message: 'Booking done!', data: newAppointment });
+
+  } catch (err) {
+    res.json({ message: 'Server error', error: err });
+  }
 });
 
 // Start server
-app.listen(3001, () => {
-  console.log("Server is running");
+app.listen(port, () => {
+  console.log(`Server is running on port${port}`);
 });

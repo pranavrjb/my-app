@@ -1,12 +1,13 @@
-const mongoose=require('mongoose')
+import mongoose from 'mongoose';
 
-const AppointmentBookingSchema= new mongoose.Schema({
-    name:String,
-    email:String,
-    phone:Number,
-    date:Date,
-    time:TimeRanges,
-    doctor:String,
+const AppointmentBookingSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  phone: { type: Number, required: true },
+  date: { type: Date, required: true },
+  time: { type: String, required: true },
+  doctor: { type: String, required: true }
 });
- const AppointmentBookingModel=mongoose.model("appointmentbooking",AppointmentBookingSchema);
- module.exports=AppointmentBookingModel;
+
+const AppointmentBookingModel = mongoose.model('appointmentbooking', AppointmentBookingSchema);
+export default AppointmentBookingModel;

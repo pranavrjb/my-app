@@ -14,22 +14,30 @@ const AppointmentBooking = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    axios.post('https://localhost:3001/appointmentbooking', {
-        name,
-        email,
-        phone,
-        date,
-        time,
-        doctor,
-      })
+    axios.post('http://localhost:3001/appointmentbooking', { // Use 'http' not 'https'
+      name,
+      email,
+      phone,
+      date,
+      time,
+      doctor,
+    })
       .then((result) => {
         console.log(result);
         setIsSubmitting(false);
-        // Reset form or show success message
+        alert('Booking confirmed!');
+        // Reset form
+        setName('');
+        setEmail('');
+        setPhone('');
+        setDate('');
+        setTime('');
+        setDoctor('');
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         setIsSubmitting(false);
+        alert('Error occurred during booking');
       });
   };
 
@@ -50,6 +58,7 @@ const AppointmentBooking = () => {
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
             />
           </div>
 
@@ -64,6 +73,7 @@ const AppointmentBooking = () => {
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
 
@@ -77,7 +87,9 @@ const AppointmentBooking = () => {
               placeholder="Enter your phone number"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={phone}
+              max={10}
               onChange={(e) => setPhone(e.target.value)}
+              required
             />
           </div>
 
@@ -91,6 +103,7 @@ const AppointmentBooking = () => {
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={date}
               onChange={(e) => setDate(e.target.value)}
+              required
             />
           </div>
 
@@ -104,6 +117,7 @@ const AppointmentBooking = () => {
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={time}
               onChange={(e) => setTime(e.target.value)}
+              required
             />
           </div>
 
@@ -116,6 +130,7 @@ const AppointmentBooking = () => {
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={doctor}
               onChange={(e) => setDoctor(e.target.value)}
+              required
             >
               <option value="">Select a doctor</option>
               <option value="Dr. Loren">Dr. Loren</option>
