@@ -1,49 +1,27 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
 const AppointmentBooking = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [doctor, setDoctor] = useState('');
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState({ text: '', type: '' })
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    //for resetting the msgs
-    setMessage({ text: '', type: '' })
+  const [message, setMessage] = useState({ text: '', type: '' });
 
-    axios.post('http://localhost:3001/appointmentbooking', {
-      name,
-      email,
-      phone,
-      date,
-      time,
-      doctor,
-    })
-      .then((result) => {
-        console.log(result);
-        setIsSubmitting(false);
-        setMessage({ text: 'Booking is successful!', type: 'success' })
-        // alert('Booking confirmed!');
-        // Reset form
-        setName('');
-        setEmail('');
-        setPhone('');
-        setDate('');
-        setTime('');
-        setDoctor('');
-      })
-      .catch((err) => {
-        console.error(err);
-        setIsSubmitting(false);
-        // alert('Error occurred during booking!');
-        setMessage({ text: 'Error occured during booking process!', type: 'error' })
-      });
+  const onSubmit = async (data) => {
+    try {
+      const result = await axios.post('http://localhost:3001/appointmentbooking', data);
+      console.log(result);
+      setMessage({ text: 'Booking is successful!', type: 'success' });
+      reset();
+    } catch (err) {
+      console.error(err);
+      setMessage({ text: 'Error occurred during booking process!', type: 'error' });
+    }
   };
 
   return (
@@ -51,8 +29,8 @@ const AppointmentBooking = () => {
       <div className="bg-white p-8 rounded-lg shadow-md max-w-lg w-full">
         <h2 className="text-2xl font-bold text-center mb-6">Book an Appointment</h2>
 
-        {/* appointment form*/}
-        <form onSubmit={handleSubmit}>
+        {/* Appointment form */}
+        <form onSubmit={handleSubmit(onSubmit)}>
 
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="name">
@@ -62,11 +40,10 @@ const AppointmentBooking = () => {
               type="text"
               id="name"
               placeholder="Enter your name"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
+              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${errors.name ? 'border-red-500' : 'focus:ring-blue-400'}`}
+              {...register('name', { required: 'Name is required' })}
             />
+            {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
           </div>
 
           <div className="mb-4">
@@ -77,11 +54,16 @@ const AppointmentBooking = () => {
               id="email"
               type="email"
               placeholder="Enter your email"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${errors.email ? 'border-red-500' : 'focus:ring-blue-400'}`}
+              {...register('email', {
+                required: 'Email is required',
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message: 'Invalid email address',
+                },
+              })}
             />
+            {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
           </div>
 
           <div className="mb-4">
@@ -92,12 +74,14 @@ const AppointmentBooking = () => {
               id="phone"
               type="text"
               placeholder="Enter your phone number"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-              value={phone}
-              maxLength={10}
-              onChange={(e) => setPhone(e.target.value)}
-              required
+              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${errors.phone ? 'border-red-500' : 'focus:ring-blue-400'}`}
+              {...register('phone', {
+                required: 'Phone number is required',
+                minLength: { value: 10, message: 'Phone number must be 10 digits' },
+                maxLength: { value: 10, message: 'Phone number must be 10 digits' },
+              })}
             />
+            {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
           </div>
 
           <div className="mb-4">
@@ -107,11 +91,10 @@ const AppointmentBooking = () => {
             <input
               id="date"
               type="date"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              required
+              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${errors.date ? 'border-red-500' : 'focus:ring-blue-400'}`}
+              {...register('date', { required: 'Date is required' })}
             />
+            {errors.date && <p className="text-red-500 text-sm">{errors.date.message}</p>}
           </div>
 
           <div className="mb-4">
@@ -121,11 +104,10 @@ const AppointmentBooking = () => {
             <input
               id="time"
               type="time"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              required
+              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${errors.time ? 'border-red-500' : 'focus:ring-blue-400'}`}
+              {...register('time', { required: 'Time is required' })}
             />
+            {errors.time && <p className="text-red-500 text-sm">{errors.time.message}</p>}
           </div>
 
           <div className="mb-4">
@@ -134,16 +116,15 @@ const AppointmentBooking = () => {
             </label>
             <select
               id="doctor"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-              value={doctor}
-              onChange={(e) => setDoctor(e.target.value)}
-              required
+              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${errors.doctor ? 'border-red-500' : 'focus:ring-blue-400'}`}
+              {...register('doctor', { required: 'Please select a doctor' })}
             >
               <option value="">Select a doctor</option>
               <option value="Dr. Loren">Dr. Loren</option>
               <option value="Dr. Smith">Dr. Smith</option>
               <option value="Dr. Taylor">Dr. Taylor</option>
             </select>
+            {errors.doctor && <p className="text-red-500 text-sm">{errors.doctor.message}</p>}
           </div>
 
           <button
@@ -154,12 +135,13 @@ const AppointmentBooking = () => {
             {isSubmitting ? 'Booking...' : 'Book Appointment'}
           </button>
 
-          <p
-            className={`mt-4 text-center text-md ${message.type === 'success' ? 'text-green-900' : 'text-red-700'
-              }`}
-          >
-            {message.text}
-          </p>
+          {message.text && (
+            <p
+              className={`mt-4 text-center text-md ${message.type === 'success' ? 'text-green-900' : 'text-red-700'}`}
+            >
+              {message.text}
+            </p>
+          )}
         </form>
       </div>
     </div>
