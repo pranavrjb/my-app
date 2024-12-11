@@ -1,59 +1,116 @@
-Requirements
-User Roles
-Company Admin: Can register, manage employees, services, notifications, and holidays.
-Employee: Can have appointments booked for them.
-Booker: Can book appointments and provide contact information.
-Functional Requirements
-Company Registration
+1. Requirements Gathering
 
-Allow companies to register with details (company name, email, password).
-Employee Management
+User Roles:
+Patients: Book appointments, view history.
+Doctors: Manage availability, view appointments.
+Admin: Manage users, doctors, and appointments.
+Features:
+User authentication (signup/login).
+Profile management for patients and doctors.
+Appointment scheduling with time slots.
+Notifications for booking confirmation/cancellation.
+Search and filter for doctors by specialty/location.
+Admin dashboard for user and appointment management.
 
-Companies can add, edit, or remove employees.
-Each employee has a profile with name, service availability, and schedule.
-Service Management
+2. System Architecture
 
-Companies can define types of services offered, including:
-Service name
-Time required for service
-Grace period for late arrivals
-Days services are available
-Appointment Booking
+Frontend: React for building the user interface.
+Backend: Node.js with Express for API endpoints.
+Database: MongoDB for storing user, doctor, and appointment data.
 
-Allow bookers to search for employees and book appointments.
-Bookings can be made for specific employees or the company as a whole.
-Bookers provide:
-Full name
-Email
-Phone number
-Notification Settings
+3. Database Design
 
-Companies can configure notification preferences (email/SMS) for:
-Appointment confirmations
-Reminders
-Cancellations
-Rescheduling
-Holiday Management
+Collections:
+Users:
+_id
+name
+email
+password (hashed)
+role (patient or doctor)
+profileDetails (age, gender, specialty, bio, etc.)
+Appointments:
+_id
+patientId
+doctorId
+appointmentDate
+timeSlot
+status (confirmed/canceled)
+Admin (optional if using roles in Users):
+_id
+email
+password
+Notifications (optional):
+_id
+userId
+message
+read (boolean)
 
-Companies can define holidays when services are unavailable.
-Calendar Integration
+4. Frontend Structure (React)
 
-Integrate with calendars (Google Calendar, Outlook) for syncing appointments.
-User Interface
+Pages/Components:
+Public Pages:
+Home: Overview of the platform.
+About: Details about the platform.
+Contact: Contact form.
+Auth Pages:
+Login/Signup: Authentication.
+Patient Dashboard:
+Search Doctors: List of doctors with filters.
+Book Appointment: Form for selecting date and time.
+My Appointments: View/manage booked appointments.
+Doctor Dashboard:
+Manage Schedule: Set availability.
+View Appointments: Check patient bookings.
+Admin Dashboard:
+Manage Users: Add/edit/delete users.
+Manage Appointments: Oversee bookings.
+Common Components:
+Navbar/Footer
+Notification Dropdown
+Profile Settings
 
-Clean and intuitive UI for easy navigation.
-Responsive design for mobile and desktop use.
-User Stories
-Company Admin
-As a Company Admin, I want to register my company, so I can manage appointments and employees.
-As a Company Admin, I want to add, edit, or remove employees, so I can keep my employee roster up to date.
-As a Company Admin, I want to create and manage service types, so I can offer various services to bookers.
-As a Company Admin, I want to set up notification preferences, so I can keep everyone informed about appointments.
-As a Company Admin, I want to define holidays, so that bookers know when services are unavailable.
-Employee
-As an Employee, I want to see my schedule of appointments, so I can prepare for my upcoming bookings.
-Booker
-As a Booker, I want to search for available employees based on services, so I can find the right person for my needs.
-As a Booker, I want to book an appointment, so I can ensure I receive the service I need at a convenient time.
-As a Booker, I want to receive confirmation and reminders about my appointments, so I don’t forget them.
-As a Booker, I want to cancel or reschedule my appointments, so I can manage my time effectively.
+5. Backend Structure (Node.js + Express)
+
+API Endpoints:
+Auth Routes:
+POST /auth/signup
+POST /auth/login
+User Routes:
+GET /users/profile/:id
+PUT /users/update/:id
+Doctor Routes:
+GET /doctors
+PUT /doctors/availability/:id
+Appointment Routes:
+POST /appointments/book
+GET /appointments/patient/:id
+GET /appointments/doctor/:id
+PUT /appointments/cancel/:id
+Admin Routes:
+GET /admin/users
+DELETE /admin/users/:id
+
+6. Tech Stack Setup
+
+Frontend:
+React Router: For navigation.
+Redux/Context API: For state management.
+Material-UI/Bootstrap: For styling.
+Backend:
+Express: For handling routes.
+Mongoose: For database interaction.
+JWT: For authentication.
+Database:
+Design and implement collections using MongoDB.
+
+7. Additional Features
+
+Payment Integration (optional): Allow patients to pay for appointments.
+Live Chat (optional): Enable patient-doctor communication.
+Calendar Integration: Show appointment schedules in a calendar view.
+
+8. Deployment
+
+Frontend: Deploy on platforms like Vercel or Netlify.
+Backend: Deploy on Heroku, AWS, or DigitalOcean.
+Database: Use MongoDB Atlas for cloud storage.

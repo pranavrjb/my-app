@@ -4,19 +4,21 @@ const Navbar = () => {
     <nav className="bg-blue-500 p-2 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
-        <div className="text-white text-2xl font-bold">
+        <div className="text-white text-3xl font-bold">
           <a href="/">My-App</a>
         </div>
 
         
-        <div className="hidden md:flex space-x-6">
-          <a href="/" className="text-white hover:underline">Home</a>
-          <a href="/profile" className='text-white hover:underline'>Profile</a>
+        <div className="hidden md:flex space-x-10">
+          {/* <a href="/" className="text-white hover:underline">Home</a> */}
+          {/* <a href="/profile" className='text-white hover:underline'>Profile</a> */}
           <a href="/appointment" className='text-white hover:underline'>Appointment</a>
-          <a href="/services" className="text-white hover:underline">Services</a>
-          <a href="/contact" className="text-white hover:underline">Contact Us</a>
-          <a href="/about" className="text-white hover:underline">About Us</a>
+          {/* <a href="/services" className="text-white hover:underline">Services</a> */}
+          {/* <a href="/contact" className="text-white hover:underline">Contact Us</a> */}
           <a href="/login" className="text-white hover:underline">Login</a>
+          {/* <a href="/about" className="text-white hover:underline">About Us</a> */}
+          <a href="/company" className="text-white hover:underline">Company Registration</a>
+
         </div>
 
         
