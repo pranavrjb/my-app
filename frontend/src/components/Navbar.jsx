@@ -10,11 +10,8 @@ const Navbar = () => {
 
         
         <div className="hidden md:flex space-x-10">
-          {/* <a href="/" className="text-white hover:underline">Home</a> */}
-          {/* <a href="/profile" className='text-white hover:underline'>Profile</a> */}
-          <a href="/appointment" className='text-white hover:underline'>Appointment</a>
+          <a href="/booking" className='text-white hover:underline'>Appointment</a>
           {/* <a href="/services" className="text-white hover:underline">Services</a> */}
-          {/* <a href="/contact" className="text-white hover:underline">Contact Us</a> */}
           <a href="/login" className="text-white hover:underline">Login</a>
           {/* <a href="/about" className="text-white hover:underline">About Us</a> */}
           <a href="/company" className="text-white hover:underline">Company Registration</a>
