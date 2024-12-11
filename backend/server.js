@@ -1,12 +1,16 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import authRoutes from './routes/auth'
+import authRoutes from './routes/auth.js'
+import cors from 'cors'
 
 const app=express()
 const port = process.env.PORT || 5000;
-const conn ="mongodb://localhost:27017/test";
+const conn ="mongodb://localhost:27017/";
+
 app.use(express.json())
+app.use(cors())
 app.use('/auth', authRoutes)
+
 
 mongoose.connect(conn, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(()=>console.log('MongooDB is connected!'))

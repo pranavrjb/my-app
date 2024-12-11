@@ -1,7 +1,7 @@
 import express from 'express'
 import bcrypt from  'bcrypt'
 import jwt from 'jsonwebtoken'
-import User from '../models/User'
+import User from '../models/User.js'
 
 const router= express.Router();
 
@@ -13,7 +13,7 @@ try{
     const user= await User.findOne({email});
     if(!user) return res.status(404).json({message:"User not found"});
 
-    const isPasswordValid=await bcrypt.compare(password,user.password);
+    const isPasswordValid= bcrypt.compare(password, user.password);
     if(!isPasswordValid) return res.status(400).json({message:"Invalid Password!"})
 
     const token = jwt.sign({ id: user._id, email: user.email }, 'your_jwt_secret', { expiresIn: '30 minute'});
@@ -24,3 +24,5 @@ try{
 }
 
 })
+const authRoutes = router;
+export default authRoutes;
