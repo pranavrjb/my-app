@@ -5,7 +5,7 @@ import cors from 'cors'
 
 const app=express()
 const port = 3000;
-const conn ="mongodb://localhost:27017/";
+const conn ="mongodb://localhost:27017/test";
 
 app.use(express.json())
 app.use(cors())
