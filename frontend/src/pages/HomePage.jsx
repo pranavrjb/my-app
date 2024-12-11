@@ -1,15 +1,18 @@
 import React from 'react';
+import { Button, Typography } from '@mui/material';
 
 const HomePage = () => {
     return (
         <div className="bg-blue-100 min-h-screen flex flex-col justify-center items-center">
-            <h1 className="text-5xl font-bold text-blue-600 mb-4">Welcome to MedConnect</h1>
-            <p className="text-lg text-gray-700 mb-6">
+            <Typography variant="h3" color="primary" className="mb-4">
+                Welcome to MedConnect
+            </Typography>
+            <Typography variant="body1" className="text-center mb-6">
                 Book appointments with trusted doctors in your area.
-            </p>
-            <button className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600">
+            </Typography>
+            <Button variant="contained" color="primary" size="large" href="/booking">
                 Get Started
-            </button>
+            </Button>
         </div>
     );
 };

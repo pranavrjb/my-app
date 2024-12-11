@@ -1,10 +1,10 @@
-// src/pages/BookAppointment.jsx
 import React, { useState } from 'react';
+import { TextField, Button, Grid, Typography } from '@mui/material';
 import axios from 'axios';
 
 const BookAppointment = () => {
     const [formData, setFormData] = useState({
-        userId: '', // Replace with logged-in user's ID
+        patientId: '',
         doctorId: '',
         date: '',
         time: '',
@@ -20,53 +20,69 @@ const BookAppointment = () => {
             const res = await axios.post('http://localhost:3000/appointments/book', formData);
             alert(res.data.message);
         } catch (error) {
-            console.log('Error booking appointment:', error);
+            console.error('Error booking appointment:', error);
         }
     };
 
     return (
-        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">Book an Appointment</h2>
+        <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+            <Typography variant="h4" align="center" color="primary" gutterBottom>
+                Book an Appointment
+            </Typography>
             <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                    <label className="block text-gray-700">Doctor ID:</label>
-                    <input
-                        type="text"
-                        name="doctorId"
-                        value={formData.doctorId}
-                        onChange={handleChange}
-                        className="w-full px-3 py-2 border rounded-lg"
-                        required
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700">Date:</label>
-                    <input
-                        type="date"
-                        name="date"
-                        value={formData.date}
-                        onChange={handleChange}
-                        className="w-full px-3 py-2 border rounded-lg"
-                        required
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700">Time:</label>
-                    <input
-                        type="time"
-                        name="time"
-                        value={formData.time}
-                        onChange={handleChange}
-                        className="w-full px-3 py-2 border rounded-lg"
-                        required
-                    />
-                </div>
-                <button
+                <TextField
+                    label="Patient ID"
+                    name="patientId"
+                    value={formData.patientId}
+                    onChange={handleChange}
+                    fullWidth
+                    className="mb-4"
+                    required
+                />
+                <TextField
+                    label="Doctor ID"
+                    name="doctorId"
+                    value={formData.doctorId}
+                    onChange={handleChange}
+                    fullWidth
+                    className="mb-4"
+                    required
+                />
+                <TextField
+                    label="Date"
+                    name="date"
+                    type="date"
+                    value={formData.date}
+                    onChange={handleChange}
+                    fullWidth
+                    className="mb-4"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    required
+                />
+                <TextField
+                    label="Time"
+                    name="time"
+                    type="time"
+                    value={formData.time}
+                    onChange={handleChange}
+                    fullWidth
+                    className="mb-4"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    required
+                />
+                <Button
+                    variant="contained"
+                    color="primary"
                     type="submit"
-                    className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+                    fullWidth
+                    className="mt-4"
                 >
                     Book Appointment
-                </button>
+                </Button>
             </form>
         </div>
     );
