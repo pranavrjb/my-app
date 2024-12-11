@@ -53,6 +53,8 @@ return(
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
+            
+            <option value="0">Select one</option>
             <option value="patient">Patient</option>
             <option value="doctor">Doctor</option>
         </select>
