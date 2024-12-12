@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Card, CardContent, Typography, Button, Grid, InputAdornment } from '@mui/material';
+import React, { useState } from 'react';
+import { TextField, Typography, Button, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search'
 
 const HomePage = () => {
@@ -17,7 +17,7 @@ const HomePage = () => {
             </Typography>
             <TextField
                 label="Search by name, specialization, or location"
-                variant="outlined"
+                variant="standard"
                 style={{ width: '70%' }}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}

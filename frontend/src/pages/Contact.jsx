@@ -33,7 +33,10 @@ const Contact = () => {
         }
     }
 
-    const handleCloseSnackbar = () => {
+    const handleClose = ( _event,reason) => {
+    if (reason === 'clickaway') {
+        return;
+    }
         setSnackbarOpen('false')
     };
 
@@ -99,11 +102,11 @@ const Contact = () => {
 
                 <Snackbar
                     open={snackbarOpen}
-                    autoHideDuration={1000}
-                    onClose={handleCloseSnackbar}
+                    autoHideDuration={6000}
+                    onClose={handleClose}
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                 >
-                    <Alert onClose={handleCloseSnackbar} severity={snackbarStrict} variant="standard">
+                    <Alert onClose={handleClose} severity={snackbarStrict} variant="standard">
                         {snackbarMessage}
                     </Alert>
                 </Snackbar>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button, TextField, InputAdornment } from '@mui/material'; 
 import { Link } from 'react-router-dom'; 
+import LoginIcon from '@mui/icons-material/Login';
 
 const Navbar = () => {
   return (
@@ -15,6 +16,9 @@ const Navbar = () => {
           <Button color="inherit" component={Link} to="/booking">
             Appointment
           </Button>
+          <Button color="inherit" component={Link} to="/contact">
+            Contact Us
+          </Button>
           <Button color="inherit" component={Link} to="/patients/dashboard">
             Patient
           </Button>
@@ -22,10 +26,7 @@ const Navbar = () => {
             Doctor
           </Button>
           <Button color="inherit" component={Link} to="/login">
-            Login
-          </Button>
-          <Button color="inherit" component={Link} to="/contact">
-            Contact Us
+            <LoginIcon/>
           </Button>
         </div>
         </Toolbar>

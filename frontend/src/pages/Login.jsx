@@ -44,9 +44,10 @@ const Login = () => {
                             fullWidth
                             required
                             InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <EmailIcon />
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <EmailIcon
+                                            style={{ cursor: 'pointer' }} />
                                     </InputAdornment>
                                 ),
                             }}
@@ -64,9 +65,10 @@ const Login = () => {
                             fullWidth
                             required
                             InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <LockIcon />
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <LockIcon
+                                            style={{ cursor: 'pointer' }} />
                                     </InputAdornment>
                                 ),
                             }}
