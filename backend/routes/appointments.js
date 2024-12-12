@@ -12,7 +12,12 @@ router.post('/book', async (req, res) => {
         await newAppointment.save()
         res.status(201).json({ message: "Appointment Booked Successfully!", appointment: newAppointment })
     } catch (error) {
-        res.status(500).json({ message: "Something went Wrong!" })
+        if(error.response){
+            console.log("Error Response:",error.response.message)
+        }else{
+
+            res.status(500).json({ message: "Something went Wrong!" })
+        }
     }
 });
 

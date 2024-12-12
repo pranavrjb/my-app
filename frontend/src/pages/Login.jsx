@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { TextField, Button, Typography, Grid } from '@mui/material';
-import { Email as EmailIcon, Lock as LockIcon } from '@mui/icons-material';  // Import MUI icons
+import { TextField, Button, Typography, Grid, InputAdornment } from '@mui/material';
+import { Email as EmailIcon, Lock as LockIcon } from '@mui/icons-material';
 import API from '../api';
 
 const Login = () => {
@@ -12,11 +12,16 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('Form Data:', formData);
         try {
             const { data } = await API.post('/auth/login', formData);
-            console.log('Login Successful', data);
+            console.log('Login Successful:', data);
         } catch (error) {
-            console.log('Login error!', error);
+            if (error.response) {
+                console.error('Error Response:', error.response.data);
+            } else {
+                console.error('Login Error:', error.message);
+            }
         }
     };
 
@@ -33,13 +38,17 @@ const Login = () => {
                             label="Email"
                             name="email"
                             type="email"
-                            placeholder='example@domain.com'
+                            placeholder="example@domain.com"
                             value={formData.email}
                             onChange={handleChange}
                             fullWidth
                             required
                             InputProps={{
-                                startAdornment: <EmailIcon position="start" />,
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <EmailIcon />
+                                    </InputAdornment>
+                                ),
                             }}
                         />
                     </Grid>
@@ -49,15 +58,19 @@ const Login = () => {
                             label="Password"
                             name="password"
                             type="password"
-                            placeholder='********'
+                            placeholder="********"
                             value={formData.password}
                             onChange={handleChange}
                             fullWidth
                             required
                             InputProps={{
-                                startAdornment: <LockIcon position="start" />,
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <LockIcon />
+                                    </InputAdornment>
+                                ),
                             }}
-                            inputProps={{ minLength: 8 }}  // Minimum password length
+                            inputProps={{ minLength: 8 }}
                         />
                     </Grid>
 

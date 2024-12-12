@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Grid, Typography } from '@mui/material';
-import axios from 'axios';
+import API from '../api';
+import { ControlCameraSharp } from '@mui/icons-material';
 
 const BookAppointment = () => {
     const [formData, setFormData] = useState({
@@ -17,10 +18,15 @@ const BookAppointment = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:3000/appointments/book', formData);
-            alert(res.data.message);
+            const {res} = await API.post('/appointments/book', formData);
+            console.log('Form Data:',formData)
+            // alert(res.data.message);
         } catch (error) {
-            console.error('Error booking appointment:', error);
+            if(error.response){
+                console.log('Error Response:', error.response.data);
+            }else{
+                console.log('Booking Error!',error)
+            }
         }
     };
 

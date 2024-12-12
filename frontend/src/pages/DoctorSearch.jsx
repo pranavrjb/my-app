@@ -9,7 +9,7 @@ const DoctorSearch = () => {
     useEffect(() => {
         const fetchDoctors = async () => {
             try {
-                const res = await axios.get('http://localhost:3000/doctors');
+                const res = await axios.get('http://localhost:3001/doctors');
                 setDoctors(res.data);
             } catch (error) {
                 console.error('Error fetching doctors:', error);
