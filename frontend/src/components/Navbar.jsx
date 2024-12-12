@@ -25,9 +25,9 @@ const Navbar = () => {
           <Button color="inherit" component={Link} to="/login">
             Login
           </Button>
-          {/* <Button color="inherit" component={Link} to="/company">
-            Company Registration
-          </Button> */}
+          <Button color="inherit" component={Link} to="/contact">
+            Contact Us
+          </Button>
         </div>
 
         <TextField
