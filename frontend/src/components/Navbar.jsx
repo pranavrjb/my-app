@@ -1,11 +1,10 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, TextField, InputAdornment } from '@mui/material';
-import { Search as SearchIcon } from '@mui/icons-material';  
+import { AppBar, Toolbar, Typography, Button, TextField, InputAdornment } from '@mui/material'; 
 import { Link } from 'react-router-dom'; 
 
 const Navbar = () => {
   return (
-    <AppBar position="static" color="primary" sx={{ p: 1 }}>
+    <AppBar position="static" color="transparent" width="100%">
       <Toolbar>
         {/* Logo */}
         <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
@@ -29,21 +28,7 @@ const Navbar = () => {
             Contact Us
           </Button>
         </div>
-
-        <TextField
-          variant="outlined"
-          placeholder="Search..."
-          size="small"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-          sx={{ backgroundColor: 'white', borderRadius: 1, ml: 2 }}
-        />
-      </Toolbar>
+        </Toolbar>
     </AppBar>
   );
 };

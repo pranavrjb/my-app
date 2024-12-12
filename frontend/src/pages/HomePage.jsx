@@ -1,13 +1,38 @@
-import React from 'react';
-import { Button, Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { TextField, Card, CardContent, Typography, Button, Grid, InputAdornment } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search'
 
 const HomePage = () => {
+    const [doctors, setDoctors] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const handleSearchClick = () => {
+        console.log('Search icon clicked! Search Term:', searchTerm);
+    };
+
     return (
-        <div className="bg-blue-100 min-h-screen flex flex-col justify-center items-center">
-            <Typography variant="h3" color="primary" className="mb-4">
-                Welcome to My-App
+        <div className="bg-neutral-100 min-h-screen flex flex-col flex-start items-center pt-20">
+            <Typography variant="h2" color="primary" className="mb-4 pt-6 font-bold">
+                LOGO
             </Typography>
-            <Typography variant="body1" className="text-center mb-6">
+            <TextField
+                label="Search by name, specialization, or location"
+                variant="outlined"
+                style={{ width: '70%' }}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                InputProps={{
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            <SearchIcon
+                                style={{ cursor: 'pointer'}}
+                                onClick={handleSearchClick}
+                            />
+                        </InputAdornment>
+                    ),
+                }}
+            />
+            <Typography variant="body1" className="text-center mb-6 pb-4 pt-6">
                 Book appointments with trusted doctors in your area.
             </Typography>
             <Button variant="contained" color="primary" size="large" href="/booking">

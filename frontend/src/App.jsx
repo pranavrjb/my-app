@@ -13,7 +13,7 @@ import Contact from './pages/Contact'
 const App = () => {
 
   return (
-    <div className='mx-4 sm:mx-[8%]'>
+    <div>
       <Navbar />
       <Routes>
         <Route path='/' element={<HomePage />} />
@@ -21,6 +21,7 @@ const App = () => {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/cont' element={<DoctorSearch />} />
         <Route path="/patients/dashboard" element={<PatientDashboard />} />
         <Route path="/doctors/dashboard" element={<DoctorDashboard />} />
 
