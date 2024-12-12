@@ -12,16 +12,22 @@ const Navbar = () => {
           <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>My-App</Link>
         </Typography>
 
-        <div className="hidden md:flex space-x-4">
+        <div className="hidden md:flex space-x-4 font-bold">
           <Button color="inherit" component={Link} to="/booking">
             Appointment
+          </Button>
+          <Button color="inherit" component={Link} to="/patients/dashboard">
+            Patient
+          </Button>
+          <Button color="inherit" component={Link} to="/doctors/dashboard">
+            Doctor
           </Button>
           <Button color="inherit" component={Link} to="/login">
             Login
           </Button>
-          <Button color="inherit" component={Link} to="/company">
+          {/* <Button color="inherit" component={Link} to="/company">
             Company Registration
-          </Button>
+          </Button> */}
         </div>
 
         <TextField

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import API from '../../api';
 
 const PatientDashboard = () => {
     const [appointments, setAppointments] = useState([]);
@@ -7,10 +7,14 @@ const PatientDashboard = () => {
     useEffect(() => {
         const fetchAppointments = async () => {
             try {
-                const res = await axios.get('http://localhost:3000/patients/dashboard');
+                const {res} = await API.get('http://localhost:3001/patients/dashboard');
                 setAppointments(res.data);
             } catch (error) {
-                console.error('Error fetching patient dashboard data:', error);
+                if(error.response){
+                    console.log("Error Response:",error.response.message)
+                }else{
+                    console.log("Something went Wrong",error)
+                }
             }
         };
 

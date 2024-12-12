@@ -18,9 +18,9 @@ const Login = () => {
             console.log('Login Successful:', data);
         } catch (error) {
             if (error.response) {
-                console.error('Error Response:', error.response.data);
+                console.log('Error Response:', error.response.data);
             } else {
-                console.error('Login Error:', error.message);
+                console.log('Login Error:', error);
             }
         }
     };
