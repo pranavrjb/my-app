@@ -14,7 +14,7 @@ const Login = () => {
         e.preventDefault();
         try {
             const { data } = await API.post('/auth/login', formData);
-            console.log('Login Successfully', data);
+            console.log('Login Successful', data);
         } catch (error) {
             console.log('Login error!', error);
         }

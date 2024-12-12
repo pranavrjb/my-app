@@ -13,9 +13,9 @@ const handleSubmit=async(e)=>{
     e.preventDefault();
 try{
     const{data}=await API.post('/auth/signup',formData);
-    console.log('SignUp Successfull',data);
+    console.log('SignUp Successful',data);
 }catch(error){
-    console.log('SignUp Unsuccessfull',error)
+    console.log('SignUp Unsuccessful',error)
 }
 }
 
