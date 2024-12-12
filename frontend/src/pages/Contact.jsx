@@ -99,11 +99,11 @@ const Contact = () => {
 
                 <Snackbar
                     open={snackbarOpen}
-                    autoHideDuration={3000}
+                    autoHideDuration={1000}
                     onClose={handleCloseSnackbar}
-                    anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                 >
-                    <Alert onClose={handleCloseSnackbar} severity={snackbarStrict} variant="filled">
+                    <Alert onClose={handleCloseSnackbar} severity={snackbarStrict} variant="standard">
                         {snackbarMessage}
                     </Alert>
                 </Snackbar>
