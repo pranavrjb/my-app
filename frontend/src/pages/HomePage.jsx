@@ -5,7 +5,7 @@ const HomePage = () => {
     return (
         <div className="bg-blue-100 min-h-screen flex flex-col justify-center items-center">
             <Typography variant="h3" color="primary" className="mb-4">
-                Welcome to MedConnect
+                Welcome to My-App
             </Typography>
             <Typography variant="body1" className="text-center mb-6">
                 Book appointments with trusted doctors in your area.
