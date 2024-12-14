@@ -42,7 +42,7 @@ const Contact = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center overflow-y-auto">
+        <div className="min-h-screen flex items-center justify-center">
             <form onSubmit={handleSubmit} className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
                 <Typography variant="h4" align="center" fontWeight={700} gutterBottom>
                     Contact Us
