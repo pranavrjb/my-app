@@ -5,20 +5,19 @@ import cors from 'cors';
 import authRoutes from './routes/auth.js';
 import doctorRoutes from './routes/doctors.js';
 import appointmentRoutes from './routes/appointments.js';
+import contactRoutes from './routes/contacts.js';
 
 const app = express();
 const port = 3001;
 const conn = "mongodb://localhost:27017/demo";
 
-// Middleware: JSON Parser and CORS
 app.use(express.json());
 app.use(cors({
   origin: 'http://localhost:5173', // Frontend origin
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-  credentials: true, // Allow cookies if needed
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  credentials: true,
 }));
 
-// MongoDB Connection
 mongoose.connect(conn, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB is connected!'))
   .catch((err) => console.error('Connection Failed!', err.message));
@@ -36,6 +35,9 @@ app.use('/doctors', doctorRoutes);
 
 // Appointment routes
 app.use('/appointments', appointmentRoutes);
+
+//Contact routes
+app.use('/contacts', contactRoutes)
 
 // Listen on the port
 app.listen(port, () => {

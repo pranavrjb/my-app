@@ -1,47 +1,48 @@
-import React, { useState } from 'react'
-import { TextField, Button, Typography, Grid, Snackbar, Alert } from '@mui/material'
-import API from '../api'
+import React, { useState } from 'react';
+import { TextField, Button, Typography, Grid, Snackbar, Alert } from '@mui/material';
+import API from '../api';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone: '',
-        message: ''
+        message: '',
     });
 
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState('');
-    const [snackbarStrict, setSnackbarStrict] = useState('success');
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState('');
+    const [severity, setSeverity] = useState('success');
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { res } = await API.post('/contacts', formData);
-            setSnackbarMessage('Your Message has been sent successfully!');
-            setSnackbarStrict('success')
-            setSnackbarOpen('true')
-            setFormData({ name: '', email: '', phone: '', message: '' })
+            const {data} = await API.post('/contacts/userContacts', formData);
+            console.log(data);
+            setMessage('Your message has been sent successfully!');
+            setSeverity('success');
+            setOpen(true);
+            setFormData({ name: '', email: '', phone: '', message: '' });
         } catch (error) {
-            setSnackbarMessage('Failed to sent Message! Please try again.')
-            setSnackbarStrict('error');
-            setSnackbarOpen('true')
+            setMessage('Failed to send message! Please try again.');
+            setSeverity('error');
+            setOpen(true);
         }
-    }
+    };
 
-    const handleClose = ( _event,reason) => {
-    if (reason === 'clickaway') {
-        return;
-    }
-        setSnackbarOpen('false')
+    const handleClose = (_event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="min-h-screen flex items-center justify-center overflow-y-auto">
             <form onSubmit={handleSubmit} className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
                 <Typography variant="h4" align="center" fontWeight={700} gutterBottom>
                     Contact Us
@@ -78,7 +79,7 @@ const Contact = () => {
                             onChange={handleChange}
                             fullWidth
                             required
-                            inputProps={{ maxLength: 10, pattern: '[0-9]{10}', }}
+                            inputProps={{ maxLength: 10, pattern: '[0-9]{10}' }}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -101,18 +102,18 @@ const Contact = () => {
                 </Grid>
 
                 <Snackbar
-                    open={snackbarOpen}
+                    open={open}
                     autoHideDuration={6000}
                     onClose={handleClose}
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                 >
-                    <Alert onClose={handleClose} severity={snackbarStrict} variant="standard">
-                        {snackbarMessage}
+                    <Alert onClose={handleClose} severity={severity} variant="filled">
+                        {message}
                     </Alert>
                 </Snackbar>
             </form>
         </div>
-    )
-}
+    );
+};
 
-export default Contact
+export default Contact;

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { TextField, Button, Grid, Typography } from '@mui/material';
+import { TextField, Button, Grid, Typography, Snackbar, Alert } from '@mui/material';
 import API from '../api';
-import { ControlCameraSharp } from '@mui/icons-material';
 
 const BookAppointment = () => {
     const [formData, setFormData] = useState({
@@ -10,6 +9,9 @@ const BookAppointment = () => {
         date: '',
         time: '',
     });
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState('');
+    const [severity, setSeverity] = useState('success');
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,16 +20,23 @@ const BookAppointment = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const {res} = await API.post('/appointments/book', formData);
-            console.log('Form Data:',formData)
-            // alert(res.data.message);
+            const { res } = await API.post('/appointments/book', formData);
+            setMessage('Booking Successful!')
+            setSeverity('success')
+            setOpen(true)
+            console.log('Form Data:', formData)
         } catch (error) {
-            if(error.response){
-                console.log('Error Response:', error.response.data);
-            }else{
-                console.log('Booking Error!',error)
-            }
+            setMessage('Your Booking has been Failed!');
+            setSeverity('error');
+            setOpen(true);
         }
+    };
+
+    const handleClose = (_event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
     };
 
     return (
@@ -36,7 +45,7 @@ const BookAppointment = () => {
                 Book an Appointment
             </Typography>
             <form onSubmit={handleSubmit}>
-                <Grid container spacing={3}> {/* Add Grid container with spacing */}
+                <Grid container spacing={3} > {/* Add Grid container with spacing */}
                     <Grid item xs={12}>
                         <TextField
                             label="Patient ID"
@@ -95,6 +104,16 @@ const BookAppointment = () => {
                             Book Appointment
                         </Button>
                     </Grid>
+                    <Snackbar
+                        open={open}
+                        autoHideDuration={6000}
+                        onClose={handleClose}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                    >
+                        <Alert onClose={handleClose} severity={severity} variant="standard">
+                            {message}
+                        </Alert>
+                    </Snackbar>
                 </Grid>
             </form>
         </div>
